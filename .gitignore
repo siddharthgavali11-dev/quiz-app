@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Local database (created automatically on first run)
+*.db
+
+# Environment files
+.env
