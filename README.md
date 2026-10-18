@@ -91,6 +91,13 @@ python app.py
 
 Open http://127.0.0.1:5000 in your browser, register an account, and start a quiz.
 
+Optional settings, set as environment variables before `python app.py`:
+
+| Variable | Purpose |
+| -------- | ------- |
+| `SECRET_KEY` | Key used to sign login sessions. If it is not set, a random key is generated on each start, so you will be logged out whenever the server restarts. |
+| `FLASK_DEBUG=1` | Turn on debug mode and auto-reload for local development. It is off by default. |
+
 On the first run the app creates a local SQLite database (`quiz_app.db`) and seeds it with six sample questions in Data Structures, Operating Systems and Programming.
 
 ---
@@ -134,6 +141,4 @@ This is a learning project, and these are the things I would fix before deployin
 
 * Any logged-in user can open the admin panel and use the admin APIs. There is no admin role check yet.
 * `/api/questions` sends the correct answer to the browser along with each question, so the answers can be read from the network tab.
-* The Flask `secret_key` is hardcoded in `app.py` and should be loaded from an environment variable.
-* The app runs with `debug=True`, which is only suitable for local development.
 
