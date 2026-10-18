@@ -4,11 +4,14 @@ from flask_cors import CORS
 import sqlite3
 import json
 import os
+import secrets
 from database import init_db, get_db_connection
 
 app = Flask(__name__)
 CORS(app)
-app.secret_key = 'super_secret_quiz_key_change_in_production'
+# Read the session key from the environment. If SECRET_KEY is not set, use a
+# random key for this run (logins will reset whenever the server restarts).
+app.secret_key = os.environ.get('SECRET_KEY') or secrets.token_hex(32)
 
 # Ensure database is initialized
 if not os.path.exists('quiz_app.db'):
@@ -224,4 +227,5 @@ def upload_questions():
         return jsonify({'error': 'Invalid file format. Must be JSON.'}), 400
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    # Debug mode is off unless you opt in with FLASK_DEBUG=1 (local development only).
+    app.run(debug=os.environ.get('FLASK_DEBUG') == '1', port=5000)
